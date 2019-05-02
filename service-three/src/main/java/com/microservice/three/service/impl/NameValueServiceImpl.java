@@ -72,7 +72,7 @@ public class NameValueServiceImpl implements NameValueService {
 		allNameValueTO.setOriginalName("Fiyat-Service");
 		allNameValueTO.setOriginalValue(allNameValueTO.getRemainingNameValuePair().get("Fiyat"));
 		allNameValueTO.getRemainingNameValuePair().remove("Fiyat");
-
+		System.out.println(allNameValueTO.toString());
 		return allNameValueTO;
 	}
 	

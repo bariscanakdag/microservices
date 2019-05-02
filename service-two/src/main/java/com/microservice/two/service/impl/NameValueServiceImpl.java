@@ -74,7 +74,7 @@ public class NameValueServiceImpl implements NameValueService {
 		allNameValueTO.setOriginalName("Stok-Service");
 		allNameValueTO.setOriginalValue(allNameValueTO.getRemainingNameValuePair().get("Stok"));
 		allNameValueTO.getRemainingNameValuePair().remove("Stok");
-
+		System.out.println(allNameValueTO.toString());
 		return allNameValueTO;
 	}
 

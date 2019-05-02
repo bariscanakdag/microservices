@@ -26,9 +26,9 @@ public class ServiceOneRabbitMQBean implements RabbitListenerConfigurer {
 
     Logger logger = Logger.getLogger(getClass().getName());
 
-	public final static String queueName = "com.mudigal.microservices-sample.service-one";
-    public final static String exchangeName = "com.mudigal.microservices-sample.services-exchange";
-    public final static String routingKeyName = "com.mudigal.microservices-sample.service-*";
+	public final static String queueName = "com.microservice.microservices-sample.service-one";
+    public final static String exchangeName = "com.microservice.microservices-sample.services-exchange";
+    public final static String routingKeyName = "com.microservice.microservices-sample.service-*";
 	
     @Bean
     Queue queue() {

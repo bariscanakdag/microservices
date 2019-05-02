@@ -75,6 +75,7 @@ public class NameValueServiceImpl implements NameValueService {
         allNameValueTO.setOriginalName("Ürün Service");
         allNameValueTO.setOriginalValue(allNameValueTO.getRemainingNameValuePair().get("Ürün "));
         allNameValueTO.getRemainingNameValuePair().remove("Ürün ");
+        System.out.println(allNameValueTO.toString());
         return allNameValueTO;
     }
 
