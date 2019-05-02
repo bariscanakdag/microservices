@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.springframework.cloud:spring-cloud-starter-archaius:1.3.7.BUILD-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-archaius/1.3.7.BUILD-SNAPSHOT/spring-cloud-starter-archaius-1.3.7.BUILD-20190327.165806-3501.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-archaius/1.3.7.BUILD-SNAPSHOT/spring-cloud-starter-archaius-1.3.7.BUILD-20190327.165806-3501-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-archaius/1.3.7.BUILD-SNAPSHOT/spring-cloud-starter-archaius-1.3.7.BUILD-20190327.165806-3501-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
