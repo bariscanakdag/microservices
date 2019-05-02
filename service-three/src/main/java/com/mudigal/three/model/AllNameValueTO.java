@@ -39,4 +39,12 @@ public class AllNameValueTO {
 		this.remainingNameValuePair = remainingNameValuePair;
 	}
 
+	@Override
+	public String toString() {
+		return "AllNameValueTO{" +
+				"originalName='" + originalName + '\'' +
+				", originalValue='" + originalValue + '\'' +
+				", remainingNameValuePair=" + remainingNameValuePair +
+				'}';
+	}
 }

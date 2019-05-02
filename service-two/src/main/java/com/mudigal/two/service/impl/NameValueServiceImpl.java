@@ -1,8 +1,10 @@
 package com.mudigal.two.service.impl;
 
-import java.util.Random;
-import java.util.UUID;
-
+import com.mudigal.two.dao.NameValueDao;
+import com.mudigal.two.domain.NameValue;
+import com.mudigal.two.model.AllNameValueTO;
+import com.mudigal.two.model.NameValueTO;
+import com.mudigal.two.service.NameValueService;
 import org.apache.log4j.Logger;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.mudigal.two.service.impl.NameValueServiceImpl;
-import com.mudigal.two.dao.NameValueDao;
-import com.mudigal.two.domain.NameValue;
-import com.mudigal.two.model.AllNameValueTO;
-import com.mudigal.two.model.NameValueTO;
-import com.mudigal.two.service.NameValueService;
+import java.util.Random;
 
 /**
  * 
@@ -57,9 +54,11 @@ public class NameValueServiceImpl implements NameValueService {
 
 	@Override
 	public AllNameValueTO getAllNameValues(String name) {
+		System.out.println("Gelen Name  : " + name  + " " + "Application Name  :  " + applicationName);
 		Iterable<NameValue> nameValues = nameValueDao.findAll();
 		AllNameValueTO allNameValueTO = new AllNameValueTO();
 		for (NameValue nameValue : nameValues) {
+			System.out.println(nameValue.toString());
 			if (nameValue.getName().equals(name)) {
 				allNameValueTO.setOriginalName(nameValue.getName());
 				allNameValueTO.setOriginalValue(nameValue.getValue());
@@ -67,6 +66,12 @@ public class NameValueServiceImpl implements NameValueService {
 				allNameValueTO.getRemainingNameValuePair().put(nameValue.getName(), nameValue.getValue());
 			}
 		}
+
+		System.out.println(allNameValueTO.toString());
+		allNameValueTO.setOriginalName("Stok-Service");
+		allNameValueTO.setOriginalValue(allNameValueTO.getRemainingNameValuePair().get("Stok"));
+		allNameValueTO.getRemainingNameValuePair().remove("Stok");
+
 		return allNameValueTO;
 	}
 
@@ -79,11 +84,11 @@ public class NameValueServiceImpl implements NameValueService {
 	}
 
 	@Override
-	public NameValueTO generateUUID(String applicationName) {
+	public NameValueTO generateUUID(String applicatFionName) {
 		NameValueTO nameValueTO = new NameValueTO();
-		nameValueTO.setName("Stok Service");
+		nameValueTO.setName("Stok");
 		Integer randomValue=random.nextInt(100);
-		nameValueTO.setValue(randomValue.toString());
+		nameValueTO.setValue(randomValue.toString() + " Adet");
 		logger.info("Saved Information: " + updateNameValue(nameValueTO));
 		return nameValueTO;
 	}

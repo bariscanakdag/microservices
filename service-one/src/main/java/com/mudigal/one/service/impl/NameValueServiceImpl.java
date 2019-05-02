@@ -59,6 +59,9 @@ public class NameValueServiceImpl implements NameValueService {
 
 	@Override
 	public AllNameValueTO getAllNameValues(String name) {
+
+		System.out.println("Gelen Name  : " + name  + " " + "Application Name  :  " + applicationName);
+
 		Iterable<NameValue> nameValues = nameValueDao.findAll();
 		AllNameValueTO allNameValueTO = new AllNameValueTO();
 		for (NameValue nameValue : nameValues) {
@@ -69,6 +72,11 @@ public class NameValueServiceImpl implements NameValueService {
 				allNameValueTO.getRemainingNameValuePair().put(nameValue.getName(), nameValue.getValue());
 			}
 		}
+
+		System.out.println(allNameValueTO.toString());
+		allNameValueTO.setOriginalName("Ürün Service");
+		allNameValueTO.setOriginalValue(allNameValueTO.getRemainingNameValuePair().get("Ürün "));
+		allNameValueTO.getRemainingNameValuePair().remove("Ürün ");
 		return allNameValueTO;
 	}
 	
@@ -78,12 +86,15 @@ public class NameValueServiceImpl implements NameValueService {
 		return generateUUID(applicationName);
 	}
 
+
+	private String[] prodcuts = {"Çicek", "Kalem", "Bilgisayar","Parfüm","Çorap"};
+
 	@Override
 	public NameValueTO generateUUID(String applicationName) {
 		NameValueTO nameValueTO = new NameValueTO();
-		nameValueTO.setName("Ürün Servis");
-		Integer randomValue=random.nextInt(200);
-		nameValueTO.setValue(randomValue.toString());
+		nameValueTO.setName("Ürün ");
+		Integer randomValue=random.nextInt(4);
+		nameValueTO.setValue(prodcuts[randomValue]);
 		logger.info("Saved Information: " + updateNameValue(nameValueTO));
 		return nameValueTO;
 	}
