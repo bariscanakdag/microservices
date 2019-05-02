@@ -18,85 +18,85 @@ import com.mudigal.one.service.NameValueService;
 import com.mudigal.one.service.impl.NameValueServiceImpl;
 
 /**
- * 
  * @author Barış Can Akdağ
- *
  */
 @Service(value = "nameValueService")
 public class NameValueServiceImpl implements NameValueService {
 
-	private Logger logger = Logger.getLogger(NameValueServiceImpl.class);
+    private Logger logger = Logger.getLogger(NameValueServiceImpl.class);
 
-	@Value("${spring.application.name}")
-	private String applicationName;
-	
-	@Autowired
-	private DozerBeanMapper dozerBeanMapper;
+    @Value("${spring.application.name}")
+    private String applicationName;
 
-	@Autowired
-	private NameValueDao nameValueDao;
+    @Autowired
+    private DozerBeanMapper dozerBeanMapper;
 
-	@Autowired
-	private ServiceOneRabbitMessageProducer serviceOneRabbitMessageProducer;
+    @Autowired
+    private NameValueDao nameValueDao;
 
-	@Override
-	public NameValueTO updateNameValue(NameValueTO nameValueTO) {
-		return updateNameValue(nameValueTO, false);
-	}
+    @Autowired
+    private ServiceOneRabbitMessageProducer serviceOneRabbitMessageProducer;
 
-	@Override
-	public NameValueTO updateNameValue(NameValueTO nameValueTO, boolean fromRabbit) {
-		logger.info("Saving: " + nameValueTO);
-		NameValueTO savedData = dozerBeanMapper
-				.map(nameValueDao.save(dozerBeanMapper.map(nameValueTO, NameValue.class)), NameValueTO.class);
-		if (!fromRabbit) {
-			serviceOneRabbitMessageProducer.sendMessageToQueue(savedData);
-		}
-		return savedData;
-	}
+    @Override
+    public NameValueTO updateNameValue(NameValueTO nameValueTO) {
+        return updateNameValue(nameValueTO, false);
+    }
 
-	private Random random=new Random();
+    @Override
+    public NameValueTO updateNameValue(NameValueTO nameValueTO, boolean fromRabbit) {
+        logger.info("Saving: " + nameValueTO);
+        NameValueTO savedData = dozerBeanMapper
+                .map(nameValueDao.save(dozerBeanMapper.map(nameValueTO, NameValue.class)), NameValueTO.class);
+        if (!fromRabbit) {
+            serviceOneRabbitMessageProducer.sendMessageToQueue(savedData);
+        }
+        return savedData;
+    }
 
-	@Override
-	public AllNameValueTO getAllNameValues(String name) {
+    private Random random = new Random();
 
-		System.out.println("Gelen Name  : " + name  + " " + "Application Name  :  " + applicationName);
+    @Override
+    public AllNameValueTO getAllNameValues(String name) {
 
-		Iterable<NameValue> nameValues = nameValueDao.findAll();
-		AllNameValueTO allNameValueTO = new AllNameValueTO();
-		for (NameValue nameValue : nameValues) {
-			if (nameValue.getName().equals(name)) {
-				allNameValueTO.setOriginalName(nameValue.getName());
-				allNameValueTO.setOriginalValue(nameValue.getValue());
-			} else {
-				allNameValueTO.getRemainingNameValuePair().put(nameValue.getName(), nameValue.getValue());
-			}
-		}
+        System.out.println("Gelen Name  : " + name + " " + "Application Name  :  " + applicationName);
 
-		System.out.println(allNameValueTO.toString());
-		allNameValueTO.setOriginalName("Ürün Service");
-		allNameValueTO.setOriginalValue(allNameValueTO.getRemainingNameValuePair().get("Ürün "));
-		allNameValueTO.getRemainingNameValuePair().remove("Ürün ");
-		return allNameValueTO;
-	}
-	
-	@Override
-	@Scheduled (fixedDelay= 60000)
-	public NameValueTO generateUUID() {
-		return generateUUID(applicationName);
-	}
+        Iterable<NameValue> nameValues = nameValueDao.findAll();
+        AllNameValueTO allNameValueTO = new AllNameValueTO();
+        for (NameValue nameValue : nameValues) {
+            if (nameValue.getName().equals(name)) {
+                allNameValueTO.setOriginalName(nameValue.getName());
+                allNameValueTO.setOriginalValue(nameValue.getValue());
+            } else {
+                allNameValueTO.getRemainingNameValuePair().put(nameValue.getName(), nameValue.getValue());
+            }
+        }
+
+        System.out.println(allNameValueTO.toString());
+        allNameValueTO.setOriginalName("Ürün Service");
+        allNameValueTO.setOriginalValue(allNameValueTO.getRemainingNameValuePair().get("Ürün "));
+        allNameValueTO.getRemainingNameValuePair().remove("Ürün ");
+        return allNameValueTO;
+    }
+
+    @Override
+    @Scheduled(fixedDelay = 5000)
+    public NameValueTO generateUUID() {
+        return generateUUID(applicationName);
+    }
 
 
-	private String[] prodcuts = {"Çicek", "Kalem", "Bilgisayar","Parfüm","Çorap"};
+    private String[] prodcuts = {"Çicek", "Kalem", "Bilgisayar", "Parfum", "Çorap",
+            "Motor", "Kulaklik", "Fare", "Sigara", "Gözlük",
+            "Batarya"};
 
-	@Override
-	public NameValueTO generateUUID(String applicationName) {
-		NameValueTO nameValueTO = new NameValueTO();
-		nameValueTO.setName("Ürün ");
-		Integer randomValue=random.nextInt(4);
-		nameValueTO.setValue(prodcuts[randomValue]);
-		logger.info("Saved Information: " + updateNameValue(nameValueTO));
-		return nameValueTO;
-	}
+    @Override
+    public NameValueTO generateUUID(String applicationName) {
+        NameValueTO nameValueTO = new NameValueTO();
+        nameValueTO.setName("Ürün ");
+        Integer randomValue = random.nextInt(9);
+        nameValueTO.setValue(prodcuts[randomValue]);
+        logger.info("Saved Information: " + updateNameValue(nameValueTO));
+        return nameValueTO;
+    }
 
 }

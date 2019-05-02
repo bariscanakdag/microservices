@@ -2,7 +2,7 @@
 FROM node:6-alpine
 
 LABEL author="Barış Can Akdağ"
-MAINTAINER vijayendrap@gmail.com
+MAINTAINER bariscan.akdag155@gmail.com
 
 # Create a directory where our app will be placed
 RUN mkdir -p /usr/src/app

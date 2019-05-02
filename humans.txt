@@ -1,9 +1,8 @@
 /* TEAM */
                            
 Name: Barış Can Akdağ.
-Email: vijayendrap@gmail.com     
-Twitter: vmudigal.
-Location: Bengaluru, India.
+Email: bariscan.akdag155@gmail.com
+
 
 /* SITE */
 

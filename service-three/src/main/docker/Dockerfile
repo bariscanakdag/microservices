@@ -1,6 +1,6 @@
 FROM openjdk:8-jre-alpine
 
-MAINTAINER suaybsimsek58@gmail.com
+MAINTAINER batuc06@gmail.com
 
 ARG PACKAGED_JAR=service-three.jar
 

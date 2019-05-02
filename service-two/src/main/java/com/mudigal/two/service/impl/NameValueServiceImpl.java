@@ -78,7 +78,7 @@ public class NameValueServiceImpl implements NameValueService {
 	private Random random=new Random();
 	
 	@Override
-	@Scheduled (fixedDelay= 60000)
+	@Scheduled (fixedDelay= 5000)
 	public NameValueTO generateUUID() {
 		return generateUUID(applicationName);
 	}
