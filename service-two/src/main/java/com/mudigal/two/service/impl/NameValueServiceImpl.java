@@ -1,5 +1,6 @@
 package com.mudigal.two.service.impl;
 
+import java.util.Random;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
@@ -68,6 +69,8 @@ public class NameValueServiceImpl implements NameValueService {
 		}
 		return allNameValueTO;
 	}
+
+	private Random random=new Random();
 	
 	@Override
 	@Scheduled (fixedDelay= 60000)
@@ -78,8 +81,9 @@ public class NameValueServiceImpl implements NameValueService {
 	@Override
 	public NameValueTO generateUUID(String applicationName) {
 		NameValueTO nameValueTO = new NameValueTO();
-		nameValueTO.setName(applicationName);
-		nameValueTO.setValue(UUID.randomUUID().toString());
+		nameValueTO.setName("Stok Service");
+		Integer randomValue=random.nextInt(100);
+		nameValueTO.setValue(randomValue.toString());
 		logger.info("Saved Information: " + updateNameValue(nameValueTO));
 		return nameValueTO;
 	}
