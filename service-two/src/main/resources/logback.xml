@@ -35,7 +35,7 @@
 		<appender-ref ref="JSON" />
 	</root>
 
-    <logger name="com.mudigal" level="DEBUG">
+    <logger name="com.microservice" level="DEBUG">
     	 <appender-ref ref="STASH"/>
     </logger>
     <logger name="org.hibernate" level="ERROR" />
