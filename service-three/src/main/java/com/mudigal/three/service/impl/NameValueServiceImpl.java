@@ -1,5 +1,6 @@
 package com.mudigal.three.service.impl;
 
+import java.util.Random;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
@@ -69,6 +70,7 @@ public class NameValueServiceImpl implements NameValueService {
 	}
 	
 
+	private Random random=new Random();
 	@Override
 	@Scheduled (fixedDelay= 60000)
 	public NameValueTO generateUUID() {
@@ -78,8 +80,9 @@ public class NameValueServiceImpl implements NameValueService {
 	@Override
 	public NameValueTO generateUUID(String applicationName) {
 		NameValueTO nameValueTO = new NameValueTO();
-		nameValueTO.setName(applicationName);
-		nameValueTO.setValue(UUID.randomUUID().toString());
+		Integer randomValue=random.nextInt(600);
+		nameValueTO.setName("Fiyat Service");
+		nameValueTO.setValue(randomValue.toString());
 		logger.info("Saved Information: " + updateNameValue(nameValueTO));
 		return nameValueTO;
 	}
