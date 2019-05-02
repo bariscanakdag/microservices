@@ -18,70 +18,67 @@ import java.util.logging.Logger;
 
 /**
  * RabbitMQ bean configurations
- * 
- * @author Barış Can Akdağ
  *
+ * @author Barış Can Akdağ
  */
 @Configuration
 public class ServiceOneRabbitMQBean implements RabbitListenerConfigurer {
 
-	Logger logger=Logger.getLogger(getClass().getName());
+    Logger logger = Logger.getLogger(getClass().getName());
 
-	public final static String queueName = "com.mudigal.microservices-sample.service-one";
+    public final static String queueName = "com.mudigal.microservices-sample.service-one";
     public final static String exchangeName = "com.mudigal.microservices-sample.services-exchange";
     public final static String routingKeyName = "com.mudigal.microservices-sample.service-*";
-	
+
     @Bean
     Queue queue() {
 
-		logger.info("geldiiiii");return new Queue(queueName, true);
+        logger.info("geldiiiii");
+        return new Queue(queueName, true);
     }
 
     @Bean
     TopicExchange exchange() {
-		logger.info("geldiiiii");
+        logger.info("geldiiiii");
         return new TopicExchange(exchangeName);
     }
 
     @Bean
     Binding binding(Queue queue, TopicExchange exchange) {
-		logger.info("geldiiiii");
+        logger.info("geldiiiii");
 
         return BindingBuilder.bind(queue).to(exchange).with(routingKeyName);
     }
 
     @Bean
-	public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
-		logger.info("geldiiiii");
-		final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-		rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());
-		return rabbitTemplate;
-	}
+    public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
+        logger.info("geldiiiii");
+        final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());
+        return rabbitTemplate;
+    }
 
-	@Bean
-	public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
-		logger.info("geldiiiii");
-		return new Jackson2JsonMessageConverter();
-	}
+    @Bean
+    public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
+        return new Jackson2JsonMessageConverter();
+    }
 
-	@Bean
-	public MappingJackson2MessageConverter consumerJackson2MessageConverter() {
-    	logger.info("geldiiiii");
-		return new MappingJackson2MessageConverter();
-	}
+    @Bean
+    public MappingJackson2MessageConverter consumerJackson2MessageConverter() {
+        return new MappingJackson2MessageConverter();
+    }
 
-	@Bean
-	public DefaultMessageHandlerMethodFactory messageHandlerMethodFactory() {
-		logger.info("geldiiiii");
-		DefaultMessageHandlerMethodFactory factory = new DefaultMessageHandlerMethodFactory();
-		factory.setMessageConverter(consumerJackson2MessageConverter());
-		return factory;
-	}
+    @Bean
+    public DefaultMessageHandlerMethodFactory messageHandlerMethodFactory() {
+        DefaultMessageHandlerMethodFactory factory = new DefaultMessageHandlerMethodFactory();
+        factory.setMessageConverter(consumerJackson2MessageConverter());
+        return factory;
+    }
 
-	@Override
-	public void configureRabbitListeners(final RabbitListenerEndpointRegistrar registrar) {
-		logger.info("geldiiiii");
-		registrar.setMessageHandlerMethodFactory(messageHandlerMethodFactory());
-	}
+    @Override
+    public void configureRabbitListeners(final RabbitListenerEndpointRegistrar registrar) {
+
+        registrar.setMessageHandlerMethodFactory(messageHandlerMethodFactory());
+    }
 
 }

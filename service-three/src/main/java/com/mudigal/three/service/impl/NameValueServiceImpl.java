@@ -56,6 +56,7 @@ public class NameValueServiceImpl implements NameValueService {
 
 	@Override
 	public AllNameValueTO getAllNameValues(String name) {
+		System.out.println("Gelen Name  : " + name  + " " + "Application Name  :  " + applicationName);
 		Iterable<NameValue> nameValues = nameValueDao.findAll();
 		AllNameValueTO allNameValueTO = new AllNameValueTO();
 		for (NameValue nameValue : nameValues) {
@@ -66,13 +67,19 @@ public class NameValueServiceImpl implements NameValueService {
 				allNameValueTO.getRemainingNameValuePair().put(nameValue.getName(), nameValue.getValue());
 			}
 		}
+
+		System.out.println(allNameValueTO.toString());
+		allNameValueTO.setOriginalName("Fiyat-Service");
+		allNameValueTO.setOriginalValue(allNameValueTO.getRemainingNameValuePair().get("Fiyat"));
+		allNameValueTO.getRemainingNameValuePair().remove("Fiyat");
+
 		return allNameValueTO;
 	}
 	
 
 	private Random random=new Random();
 	@Override
-	@Scheduled (fixedDelay= 60000)
+	@Scheduled (fixedDelay= 5000)
 	public NameValueTO generateUUID() {
 		return generateUUID(applicationName);
 	}
@@ -81,8 +88,8 @@ public class NameValueServiceImpl implements NameValueService {
 	public NameValueTO generateUUID(String applicationName) {
 		NameValueTO nameValueTO = new NameValueTO();
 		Integer randomValue=random.nextInt(600);
-		nameValueTO.setName("Fiyat Service");
-		nameValueTO.setValue(randomValue.toString());
+		nameValueTO.setName("Fiyat");
+		nameValueTO.setValue(randomValue.toString() + " TL");
 		logger.info("Saved Information: " + updateNameValue(nameValueTO));
 		return nameValueTO;
 	}
