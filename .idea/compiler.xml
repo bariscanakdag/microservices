@@ -7,17 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="api-gateway" />
-        <module name="service-one" />
         <module name="service-three" />
+        <module name="service-one" />
         <module name="service-two" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="api-gateway" target="1.8" />
-      <module name="microservices-sample" target="1.8" />
-      <module name="service-one" target="1.8" />
-      <module name="service-three" target="1.8" />
-      <module name="service-two" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
